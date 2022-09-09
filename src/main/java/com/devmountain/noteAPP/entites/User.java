@@ -11,28 +11,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table (name = "Users")
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "Users")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column (unique = true)
-    private String userName;
+
+    @Column(unique = true)
+    private String username;
+
     @Column
-    private String  password;
-    @OneToMany(mappedBy="user",fetch=FetchType.LAZY, cascade={CascadeType.MERGE,CascadeType.PERSIST})
+    private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonManagedReference
     private Set<Note> noteSet = new HashSet<>();
+
     public User(UserDto userDto){
-        if(userDto.getUserName()!= null){
-            this.userName = userDto.getUserName();
+        if (userDto.getUsername() != null){
+            this.username = userDto.getUsername();
         }
-        if(userDto.getPassword()!= null){
+        if (userDto.getPassword() != null){
             this.password = userDto.getPassword();
         }
-
     }
+
 }

@@ -10,21 +10,24 @@ import javax.lang.model.element.Name;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="Notes")
+@Table(name = "Notes")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Note {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(columnDefinition = "text")
     private String body;
+
     @ManyToOne
     @JsonBackReference
     private User user;
+
     public Note(NoteDto noteDto){
-        if(noteDto.getBody()!=null){
+        if (noteDto.getBody() != null){
             this.body = noteDto.getBody();
         }
     }
